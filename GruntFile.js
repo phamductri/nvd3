@@ -110,7 +110,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('default', ['concat', 'karma:unit']);
+    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('test', ['concat', 'karma:unit']);
     grunt.registerTask('production', ['concat', 'uglify', 'copy', 'cssmin']);
     grunt.registerTask('release', ['production']);
     grunt.registerTask('lint', ['jshint']);

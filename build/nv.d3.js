@@ -11602,6 +11602,18 @@ nv.models.turnLineWithFocusChart = function() {
 	            .scale(y)
 	            .ticks( nv.utils.calcTicksY(availableHeight1/36, data) )
 	            .tickSize( -availableWidth, 0);
+
+
+            var indexLine = g.select('.nv-focus .nv-linesWrap').selectAll('.nv-indexLine').data([21]);
+
+            indexLine.enter().append('rect').attr('class', 'nv-indexLine')
+                .attr('width', 3)
+                .attr('x', 45)
+                .attr('fill', 'red')
+                .attr('fill-opacity', .5)
+                .attr('transform', function(d) { return 'translate(21,200)' })
+                .attr('height', 250)
+                .style("pointer-events","all");
             
             g.select('.nv-focus .nv-x.nv-axis')
                 .attr('transform', 'translate(0,' + availableHeight1 + ')');
