@@ -44,7 +44,10 @@
         chart.defaultMetric('Stream2');
       	//To disable focus chart's Y axis
         //chart.showY3Axis(false);
-	
+		
+      	//Manually setting up brush extent
+      	chart.brushExtent([100,127]);
+      	
         d3.select('#chart svg')
             .datum(testData())
             .call(chart);

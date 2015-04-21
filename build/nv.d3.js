@@ -11737,14 +11737,13 @@ nv.models.turnLineWithFocusChart = function() {
 
             function onBrush() {
             	//This is just static thing we will make this dynamic
-            	brushExtent = brush.empty() ? [100, x2.domain()[1]] : brush.extent();
-                var extent = brush.empty() ? [100, x2.domain()[1]] : brush.extent();
+            	brushExtent = brush.empty() ? null : brush.extent();
+                var extent = brush.empty() ? x2.domain() : brush.extent();
                 
                 //The brush extent cannot be less than one.  If it is, don't update the line chart.
                 if (Math.abs(extent[0] - extent[1]) <= 1) {
                     return;
                 }
-                if (brushExtent) brush.extent(brushExtent)
                 
                 dispatch.brush({extent: extent, brush: brush});
 
