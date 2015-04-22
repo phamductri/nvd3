@@ -11375,7 +11375,7 @@ nv.models.turnLineWithFocusChart = function() {
         , color = nv.utils.defaultColor()
         , width = null
         , height = null
-        , height2 = 100
+        , contextHeight = 100
         , x
         , y
         , x2
@@ -11396,6 +11396,7 @@ nv.models.turnLineWithFocusChart = function() {
         , showY2Axis = true
         , showY3Axis = true
         , defaultMetric = null
+        , contextEnable = true
         ;
 
     lines
@@ -11461,8 +11462,8 @@ nv.models.turnLineWithFocusChart = function() {
             var availableWidth = (width  || parseInt(container.style('width')) || 960)
                     - margin.left - margin.right,
                 availableHeight1 = (height || parseInt(container.style('height')) || 400)
-                    - margin.top - margin.bottom - height2,
-                availableHeight2 = height2 - margin2.top - margin2.bottom;
+                    - margin.top - margin.bottom - (contextEnable ? contextHeight : 0),
+                availableHeight2 = contextHeight - margin2.top - margin2.bottom;
 
             chart.update = function() { container.transition().duration(transitionDuration).call(chart) };
             chart.container = this;
@@ -11542,7 +11543,7 @@ nv.models.turnLineWithFocusChart = function() {
                 if ( margin.top != legend.height()) {
                     margin.top = legend.height();
                     availableHeight1 = (height || parseInt(container.style('height')) || 400)
-                        - margin.top - margin.bottom - height2;
+                        - margin.top - margin.bottom - contextHeight;
                 }
 
                 g.select('.nv-legendWrap')
@@ -11552,6 +11553,9 @@ nv.models.turnLineWithFocusChart = function() {
             wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
             // Main Chart Component(s)
+            // hide or show the focus context chart
+            g.select('.nv-context').style('display', contextEnable ? 'initial' : 'none');
+            
             lines
                 .width(availableWidth)
                 .height(availableHeight1)
@@ -11820,7 +11824,6 @@ nv.models.turnLineWithFocusChart = function() {
         // simple options, just get/set the necessary values
         width:      {get: function(){return width;}, set: function(_){width=_;}},
         height:     {get: function(){return height;}, set: function(_){height=_;}},
-        focusHeight:     {get: function(){return height2;}, set: function(_){height2=_;}},
         showLegend: {get: function(){return showLegend;}, set: function(_){showLegend=_;}},
         brushExtent: {get: function(){return brushExtent;}, set: function(_){brushExtent=_;}},
         tooltips:    {get: function(){return tooltips;}, set: function(_){tooltips=_;}},
@@ -11867,7 +11870,9 @@ nv.models.turnLineWithFocusChart = function() {
         }},
         showY2Axis:    {get: function(){return showY2Axis;}, set: function(_){showY2Axis=_;}},
         showY3Axis:    {get: function(){return showY3Axis;}, set: function(_){showY3Axis=_;}},
-        defaultMetric: {get: function(){return defaultMetric;}, set: function(_){defaultMetric=_;}}
+        defaultMetric: {get: function(){return defaultMetric;}, set: function(_){defaultMetric=_;}},
+        contextEnable:    {get: function(){return contextEnable;}, set: function(_){contextEnable=_;}},
+        contextHeight:    {get: function(){return contextHeight;}, set: function(_){contextHeight=_;}}
     });
 
     nv.utils.inheritOptions(chart, lines);
