@@ -20,14 +20,14 @@
             height: 100%;
             width: 100%;
         }
+        .nv-lineWithFocusChart .nv-focus .nv-axis.nv-x line, 
+        .nv-lineWithFocusChart .nv-context .nv-axis.nv-x line { stroke: none; fill: none; }
     </style>
 </head>
 <body>
-
 <div id="chart" class='with-3d-shadow with-transitions'>
     <svg></svg>
 </div>
-
 <script>
 
     nv.addGraph(function() {
@@ -38,15 +38,22 @@
         chart.yTickFormat(d3.format(',.2f'));
         chart.y3Axis.tickFormat(d3.format(',.2f'));
        
+      	//Manually setting up brush extent
+      	chart.brushExtent([100,127]);
+      	
+      	//To enable/disable time line
+      	//chart.contextEnable(false);
+      	
+      	//To set context area height
+      	chart.contextHeight(125);
+      	
         //To disable time line's Y axis
         chart.showY2Axis(false);
-        //To show one metric chart in timeline
+        
+      	//To show one metric chart in timeline
         chart.defaultMetric('Stream2');
       	//To disable focus chart's Y axis
         //chart.showY3Axis(false);
-		
-      	//Manually setting up brush extent
-      	chart.brushExtent([100,127]);
       	
         d3.select('#chart svg')
             .datum(testData())
